@@ -1,0 +1,4 @@
+recursive-include syseggrecipe *
+recursive-include docs *
+include *
+global-exclude *.pyc

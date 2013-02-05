@@ -1,2 +1,8 @@
 *~
 *.py[co]
+.installed.cfg
+
+bin
+develop-eggs
+parts
+build
