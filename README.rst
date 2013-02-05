@@ -39,7 +39,7 @@ Tests
 To test if all syseggs are available while `force-sysegg = true` is 
 enabled in the buildout configuration.:: 
 
-  bin/buildout sysegg:force-sysegg=false sysegg
+  bin/buildout sysegg:force-sysegg=false install sysegg
 
 Origin
 ======

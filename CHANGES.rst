@@ -5,7 +5,7 @@ CHANGES
 0.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fix in README for running sysegg standalone.
 
 
 0.1 (2013-02-05)
