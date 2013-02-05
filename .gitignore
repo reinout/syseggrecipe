@@ -6,3 +6,4 @@ bin
 develop-eggs
 parts
 build
+syseggrecipe.egg-info
