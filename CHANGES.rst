@@ -2,7 +2,7 @@ CHANGES
 =======
 
 
-0.1 (unreleased)
+0.1 (2013-02-05)
 ----------------
 
 - Patch code to allow for force-sysegg=false
