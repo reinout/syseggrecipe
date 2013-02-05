@@ -1,7 +1,7 @@
 Description
 ===========
 
-The buildout recipe nens-syseggrecipe uses system installed eggs, 
+The buildout syseggrecipe uses system installed eggs, 
 called syseggs.
 These syseggs are used instead of installing them again during buildout.
 This is usefull for hard to compile eggs or eggs that need specific 
@@ -17,7 +17,7 @@ must be the first buildout part.::
   parts = sysegg
   
   [sysegg]
-  recipe = nens_syseggrecipe
+  recipe = syseggrecipe
   eggs =
     netCDF4
 
@@ -28,7 +28,7 @@ To stop the buildout when not all syseggs are installed include:
   parts = sysegg
 
   [sysegg]
-  recipe = nens_syseggrecipe
+  recipe = syseggrecipe
   force-sysegg = true
   eggs =
     netCDF4

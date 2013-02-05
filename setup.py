@@ -12,7 +12,7 @@ def read_file(name):
 readme = read_file('README.rst')
 changes = read_file('CHANGES.rst')
 
-setup(name='nens_syseggrecipe',
+setup(name='syseggrecipe',
       version=version,
       description=("nens-syseggrecipe allows the reuse of system eggs in "
                    "buildout installs"),
@@ -30,7 +30,7 @@ setup(name='nens_syseggrecipe',
       keywords='',
       author='Roland van Laar',
       author_email='roland@nelen-schuurmans.nl',
-      url='https://github.com/nens/nens-syseggrecipe',
+      url='https://github.com/nens/syseggrecipe',
       license='MIT',
       zip_safe=False,
       install_requires=[
@@ -38,5 +38,5 @@ setup(name='nens_syseggrecipe',
           'zc.recipe.egg',
       ],
       entry_points={'zc.buildout': [
-          'default = nens_syseggrecipe.recipe:Recipe']}
+          'default = syseggrecipe.recipe:Recipe']}
       )
