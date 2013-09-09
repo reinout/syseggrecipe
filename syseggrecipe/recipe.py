@@ -41,13 +41,13 @@ class Recipe(object):
                     # Ouch, a some_syspath_dir/EGGNAME dir...
                     logger.debug("Sysegg's location is %s, which is too generic",
                                  dist.location)
-                    link_to_this = os.path.join(dist.location, egg)
+                    link_to_this = os.path.join(dist.location, dist.project_name)
                     if not os.path.exists(link_to_this):
                         raise RuntimeError(
                             "Trying {} for sysegg: not found".format(
                                 link_to_this))
                     logger.info("Using %s for %s", link_to_this, egg)
-                    link_file = os.path.join(dev_egg_dir, egg)
+                    link_file = os.path.join(dev_egg_dir, dist.project_name)
                     if os.path.exists(link_file):
                         os.remove(link_file)
                     os.symlink(link_to_this, link_file)
@@ -56,13 +56,21 @@ class Recipe(object):
                     egginfo_filenames = [
                         filename for filename in all_filenames
                         if filename.endswith('.egg-info')
-                        and filename.startswith(egg)]
+                        and filename.startswith(dist.project_name)]
                     for egginfo_filename in egginfo_filenames:
                         link_to_this = os.path.join(dist.location, 
                                                     egginfo_filename)
                         link_file = os.path.join(dev_egg_dir, 
                                                  egginfo_filename)
                         os.symlink(link_to_this, link_file)
+                    # Older versions of ourselves used to create an
+                    # egg-link file. Zap it if it is still there.
+                    erroneous_old_egglink = os.path.join(
+                        dev_egg_dir, '{}.egg-link'.format(dist.project_name))
+                    if os.path.exists(erroneous_old_egglink):
+                        os.remove(erroneous_old_egglink)
+                        logger.debug("Removed old egglink %S", 
+                                     erroneous_old_egglink)
 
         return ()
 
