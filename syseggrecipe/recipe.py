@@ -39,14 +39,16 @@ class Recipe(object):
                     logger.info('Using %s for %s', dist.location, egg)
                 else:
                     # Ouch, a some_syspath_dir/EGGNAME dir...
-                    logger.debug("Sysegg's location is %s, which is too generic",
-                                 dist.location)
+                    logger.debug(
+                        "Sysegg %s's location is %s, which is too generic",
+                        egg, dist.location)
                     link_to_this = os.path.join(dist.location, dist.project_name)
                     if not os.path.exists(link_to_this):
                         raise RuntimeError(
                             "Trying {} for sysegg: not found".format(
                                 link_to_this))
-                    logger.info("Using %s for %s", link_to_this, egg)
+                    logger.info("Using direct path %s for %s", 
+                                link_to_this, egg)
                     link_file = os.path.join(dev_egg_dir, dist.project_name)
                     if os.path.exists(link_file):
                         os.remove(link_file)
@@ -62,6 +64,8 @@ class Recipe(object):
                                                     egginfo_filename)
                         link_file = os.path.join(dev_egg_dir, 
                                                  egginfo_filename)
+                        if os.path.exists(link_file):
+                            os.remove(link_file)
                         os.symlink(link_to_this, link_file)
                     # Older versions of ourselves used to create an
                     # egg-link file. Zap it if it is still there.
