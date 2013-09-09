@@ -1,4 +1,3 @@
-import glob
 import logging
 import os
 import pkg_resources
@@ -13,7 +12,7 @@ class Recipe(object):
         options.setdefault('eggs', '')
 
     def install(self):
-        log = logging.getLogger(self.name)
+        logger = logging.getLogger(self.name)
         eggs = self.options['eggs'].strip()
         eggs = [s.strip() for s in eggs.split('\n')]
 
@@ -23,7 +22,7 @@ class Recipe(object):
             try:
                 dist = pkg_resources.require(egg)[0]
             except pkg_resources.DistributionNotFound:
-                log.warn('No system distribution for %s found.' % egg)
+                logger.warn('No system distribution for %s found.' % egg)
                 if self.force_syseggs():
                     raise
 
@@ -37,17 +36,17 @@ class Recipe(object):
                     f = open(egg_egg_link, 'w')
                     f.write(dist.location)
                     f.close()
-                    log.info('Using %s for %s', dist.location, egg)
+                    logger.info('Using %s for %s', dist.location, egg)
                 else:
                     # Ouch, a some_syspath_dir/EGGNAME dir...
-                    log.debug("Sysegg's location is %s, which is too generic",
-                              dist.location)
+                    logger.debug("Sysegg's location is %s, which is too generic",
+                                 dist.location)
                     link_to_this = os.path.join(dist.location, egg)
                     if not os.path.exists(link_to_this):
                         raise RuntimeError(
                             "Trying {} for sysegg: not found".format(
                                 link_to_this))
-                    log.info("Using %s for %s", link_to_this, egg)
+                    logger.info("Using %s for %s", link_to_this, egg)
                     link_file = os.path.join(dev_egg_dir, egg)
                     if os.path.exists(link_file):
                         os.remove(link_file)
