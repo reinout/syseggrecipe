@@ -3,9 +3,6 @@ import os
 import pkg_resources
 
 
-logger = logging.getLogger(__name__)
-
-
 class Recipe(object):
 
     def __init__(self, buildout, name, options):
@@ -14,6 +11,7 @@ class Recipe(object):
         self.options = options
         options.setdefault('eggs', '')
         self.dev_egg_dir = self.buildout['buildout']['develop-eggs-directory']
+        self.logger = logging.getLogger(self.name)
 
     def install(self):
         eggs = self.options['eggs'].strip()
@@ -33,7 +31,7 @@ class Recipe(object):
         try:
             dist = pkg_resources.require(egg)[0]
         except pkg_resources.DistributionNotFound:
-            logger.warn('No system distribution for %s found.' % egg)
+            self.logger.warn('No system distribution for %s found.' % egg)
             if self.force_syseggs():
                 raise
             return
@@ -48,13 +46,13 @@ class Recipe(object):
             f = open(egg_egg_link, 'w')
             f.write(dist.location)
             f.close()
-            logger.info('Using sysegg %s for %s', dist.location, egg)
+            self.logger.info('Using sysegg %s for %s', dist.location, egg)
         else:
             # Ouch, a system path directory with possibly a lot of
             # distributions in there! Adding a .egg-link file to the
             # full directory means we enable way too many
             # distributions: everything in that directory.
-            logger.debug(
+            self.logger.debug(
                 "Sysegg %s's location is %s, which is too generic",
                 egg, dist.location)
             link_to_this = os.path.join(dist.location, dist.project_name)
@@ -62,7 +60,7 @@ class Recipe(object):
                 raise RuntimeError(
                     "Trying {} for sysegg: not found".format(
                         link_to_this))
-            logger.info("Using sysegg path %s for %s", 
+            self.logger.info("Using sysegg path %s for %s", 
                         link_to_this, egg)
             link_file = os.path.join(self.dev_egg_dir, dist.project_name)
             if os.path.exists(link_file):
@@ -82,12 +80,12 @@ class Recipe(object):
                 if os.path.exists(link_file):
                     os.remove(link_file)
                 os.symlink(link_to_this, link_file)
-                logger.debug("Symlinked egg-info dir %s, too", link_to_this)
+                self.logger.debug("Symlinked egg-info dir %s, too", link_to_this)
             # Older versions of ourselves used to create an
             # egg-link file. Zap it if it is still there.
             erroneous_old_egglink = os.path.join(
                 self.dev_egg_dir, '{}.egg-link'.format(dist.project_name))
             if os.path.exists(erroneous_old_egglink):
                 os.remove(erroneous_old_egglink)
-                logger.debug("Removed old egglink %S", 
+                self.logger.debug("Removed old egglink %S", 
                              erroneous_old_egglink)
