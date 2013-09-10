@@ -60,8 +60,8 @@ class Recipe(object):
                 raise RuntimeError(
                     "Trying {} for sysegg: not found".format(
                         link_to_this))
-            self.logger.info("Using sysegg path %s for %s", 
-                        link_to_this, egg)
+            self.logger.info("Using sysegg path %s for %s",
+                             link_to_this, egg)
             link_file = os.path.join(self.dev_egg_dir, dist.project_name)
             if os.path.exists(link_file):
                 os.remove(link_file)
@@ -73,19 +73,20 @@ class Recipe(object):
                 if filename.endswith('.egg-info')
                 and filename.startswith(dist.project_name)]
             for egginfo_filename in egginfo_filenames:
-                link_to_this = os.path.join(dist.location, 
+                link_to_this = os.path.join(dist.location,
                                             egginfo_filename)
-                link_file = os.path.join(self.dev_egg_dir, 
+                link_file = os.path.join(self.dev_egg_dir,
                                          egginfo_filename)
                 if os.path.exists(link_file):
                     os.remove(link_file)
                 os.symlink(link_to_this, link_file)
-                self.logger.debug("Symlinked egg-info dir %s, too", link_to_this)
+                self.logger.debug("Symlinked egg-info dir %s, too", 
+                                  link_to_this)
             # Older versions of ourselves used to create an
             # egg-link file. Zap it if it is still there.
             erroneous_old_egglink = os.path.join(
                 self.dev_egg_dir, '{}.egg-link'.format(dist.project_name))
             if os.path.exists(erroneous_old_egglink):
                 os.remove(erroneous_old_egglink)
-                self.logger.debug("Removed old egglink %S", 
-                             erroneous_old_egglink)
+                self.logger.debug("Removed old egglink %S",
+                                  erroneous_old_egglink)
