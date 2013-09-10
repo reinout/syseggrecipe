@@ -62,10 +62,7 @@ class Recipe(object):
                         link_to_this))
             self.logger.info("Using sysegg path %s for %s",
                              link_to_this, egg)
-            link_file = os.path.join(self.dev_egg_dir, dist.project_name)
-            if os.path.exists(link_file):
-                os.remove(link_file)
-            os.symlink(link_to_this, link_file)
+            self.symlink(link_to_this, dist.project_name)
             # Also symlink the egg-info files.
             all_filenames = os.listdir(dist.location)
             egginfo_filenames = [
@@ -75,11 +72,7 @@ class Recipe(object):
             for egginfo_filename in egginfo_filenames:
                 link_to_this = os.path.join(dist.location,
                                             egginfo_filename)
-                link_file = os.path.join(self.dev_egg_dir,
-                                         egginfo_filename)
-                if os.path.exists(link_file):
-                    os.remove(link_file)
-                os.symlink(link_to_this, link_file)
+                self.symlink(link_to_this, egginfo_filename)
                 self.logger.debug("Symlinked egg-info dir %s, too", 
                                   link_to_this)
             # Older versions of ourselves used to create an
@@ -90,3 +83,11 @@ class Recipe(object):
                 os.remove(erroneous_old_egglink)
                 self.logger.debug("Removed old egglink %S",
                                   erroneous_old_egglink)
+
+    def symlink(self, origin, link_name):
+        """Add a symlink LINK_NAME in the dev-egg dir to origin."""
+        link_file = os.path.join(self.dev_egg_dir,
+                                 link_name)
+        if os.path.exists(link_file):
+            os.remove(link_file)
+        os.symlink(origin, link_file)
