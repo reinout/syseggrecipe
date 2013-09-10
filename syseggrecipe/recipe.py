@@ -15,6 +15,7 @@ class Recipe(object):
         self.logger = logging.getLogger(self.name)
         force = self.options.get('force-sysegg', 'false')
         self.force_sysegg = (force.lower() == 'true')
+        self.added = []
 
     def install(self):
         eggs = self.options['eggs'].strip()
@@ -22,7 +23,7 @@ class Recipe(object):
 
         for egg in eggs:
             self.add_dev_link_to_egg(egg)
-        return ()
+        return self.added
 
     update = install
 
@@ -46,6 +47,7 @@ class Recipe(object):
             f.write(dist.location)
             f.close()
             self.logger.info('Using sysegg %s for %s', dist.location, egg)
+            self.added.append(egg_egg_link)
         else:
             # Ouch, a system path directory with possibly a lot of
             # distributions in there! Adding a .egg-link file to the
@@ -72,7 +74,8 @@ class Recipe(object):
                                  egginfo_filename, egg)
                 target = os.path.join(self.dev_egg_dir, egginfo_filename)
                 shutil.copyfile(egginfo_filepath, target)
-
+                self.added.append(target)
+            
             # Older versions of ourselves used to create an
             # egg-link file. Zap it if it is still there.
             erroneous_old_egglink = os.path.join(
