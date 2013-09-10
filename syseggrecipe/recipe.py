@@ -39,17 +39,21 @@ class Recipe(object):
             return
 
         if egg in dist.location:
-            # Proper egg instead of a
-            # /usr/lib/python/dist-packages dir.
+            # Proper egg like
+            # ``/usr/lib/python/dist-packages/EGGNAME.egg/`` instead
+            # of a way-too-full ``/usr/lib/python/dist-packages/`` dir.
             egg_egg_link = os.path.join(
                 self.dev_egg_dir,
                 '%s.egg-link' % dist.project_name)
             f = open(egg_egg_link, 'w')
             f.write(dist.location)
             f.close()
-            logger.info('Using %s for %s', dist.location, egg)
+            logger.info('Using sysegg %s for %s', dist.location, egg)
         else:
-            # Ouch, a some_syspath_dir/EGGNAME dir...
+            # Ouch, a system path directory with possibly a lot of
+            # distributions in there! Adding a .egg-link file to the
+            # full directory means we enable way too many
+            # distributions: everything in that directory.
             logger.debug(
                 "Sysegg %s's location is %s, which is too generic",
                 egg, dist.location)
@@ -58,7 +62,7 @@ class Recipe(object):
                 raise RuntimeError(
                     "Trying {} for sysegg: not found".format(
                         link_to_this))
-            logger.info("Using direct path %s for %s", 
+            logger.info("Using sysegg path %s for %s", 
                         link_to_this, egg)
             link_file = os.path.join(self.dev_egg_dir, dist.project_name)
             if os.path.exists(link_file):
@@ -78,6 +82,7 @@ class Recipe(object):
                 if os.path.exists(link_file):
                     os.remove(link_file)
                 os.symlink(link_to_this, link_file)
+                logger.debug("Symlinked egg-info dir %s, too", link_to_this)
             # Older versions of ourselves used to create an
             # egg-link file. Zap it if it is still there.
             erroneous_old_egglink = os.path.join(
