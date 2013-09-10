@@ -2,7 +2,7 @@ CHANGES
 =======
 
 
-0.2 (unreleased)
+0.2 (2013-09-10)
 ----------------
 
 - Fix in README for running sysegg standalone.
