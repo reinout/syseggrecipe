@@ -1,6 +1,7 @@
 import logging
 import os
 import pkg_resources
+import shutil
 
 
 class Recipe(object):
@@ -36,7 +37,7 @@ class Recipe(object):
                 raise
             return
 
-        if egg in dist.location:
+        if dist_is_egg_dir(dist):
             # Proper egg like
             # ``/usr/lib/python/dist-packages/EGGNAME.egg/`` instead
             # of a way-too-full ``/usr/lib/python/dist-packages/`` dir.
@@ -55,26 +56,25 @@ class Recipe(object):
             self.logger.debug(
                 "Sysegg %s's location is %s, which is too generic",
                 egg, dist.location)
-            link_to_this = os.path.join(dist.location, dist.project_name)
-            if not os.path.exists(link_to_this):
-                raise RuntimeError(
-                    "Trying {} for sysegg: not found".format(
-                        link_to_this))
-            self.logger.info("Using sysegg path %s for %s",
-                             link_to_this, egg)
-            self.symlink(link_to_this, dist.project_name)
-            # Also symlink the egg-info files.
+            # We expect an egg-info file that we can copy.
             all_filenames = os.listdir(dist.location)
             egginfo_filenames = [
                 filename for filename in all_filenames
                 if filename.endswith('.egg-info')
                 and filename.startswith(dist.project_name)]
+            if not egginfo_filenames:
+                raise RuntimeError(
+                    "Cannot find egg-info files in {} for sysegg {}".format(
+                        dist.location, egg))
+
             for egginfo_filename in egginfo_filenames:
-                link_to_this = os.path.join(dist.location,
-                                            egginfo_filename)
-                self.symlink(link_to_this, egginfo_filename)
-                self.logger.debug("Symlinked egg-info dir %s, too", 
-                                  link_to_this)
+                egginfo_filepath = os.path.join(dist.location, 
+                                                egginfo_filename)
+                self.logger.info("Using sysegg %s for %s",
+                                 egginfo_filename, egg)
+                target = os.path.join(self.dev_egg_dir, egginfo_filename)
+                shutil.copyfile(egginfo_filepath, target)
+
             # Older versions of ourselves used to create an
             # egg-link file. Zap it if it is still there.
             erroneous_old_egglink = os.path.join(
@@ -84,10 +84,10 @@ class Recipe(object):
                 self.logger.debug("Removed old egglink %S",
                                   erroneous_old_egglink)
 
-    def symlink(self, origin, link_name):
-        """Add a symlink LINK_NAME in the dev-egg dir to origin."""
-        link_file = os.path.join(self.dev_egg_dir,
-                                 link_name)
-        if os.path.exists(link_file):
-            os.remove(link_file)
-        os.symlink(origin, link_file)
+
+def dist_is_egg_dir(dist):
+    if not dist.location.endswith('egg'):
+        return False
+    if dist.egg_name() in dist.location:
+        return True
+    return False
