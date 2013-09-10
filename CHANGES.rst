@@ -5,7 +5,8 @@ CHANGES
 0.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Back to symlinking instead of copying: some egg-info files are
+  actually directories. Downside: Windows is out of the door again.
 
 
 0.3 (2013-09-10)
