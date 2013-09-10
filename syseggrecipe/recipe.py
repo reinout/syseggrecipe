@@ -13,6 +13,8 @@ class Recipe(object):
         options.setdefault('eggs', '')
         self.dev_egg_dir = self.buildout['buildout']['develop-eggs-directory']
         self.logger = logging.getLogger(self.name)
+        force = self.options.get('force-sysegg', 'false')
+        self.force_sysegg = (force.lower() == 'true')
 
     def install(self):
         eggs = self.options['eggs'].strip()
@@ -24,16 +26,12 @@ class Recipe(object):
 
     update = install
 
-    def force_syseggs(self):
-        force = self.options.get('force-sysegg', 'false')
-        return force.lower() == 'true'
-
     def add_dev_link_to_egg(self, egg):
         try:
             dist = pkg_resources.require(egg)[0]
         except pkg_resources.DistributionNotFound:
             self.logger.warn('No system distribution for %s found.' % egg)
-            if self.force_syseggs():
+            if self.force_sysegg:
                 raise
             return
 
