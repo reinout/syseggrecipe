@@ -2,7 +2,7 @@ CHANGES
 =======
 
 
-0.4 (unreleased)
+0.4 (2013-09-10)
 ----------------
 
 - Back to symlinking instead of copying: some egg-info files are
