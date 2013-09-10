@@ -14,7 +14,7 @@ changes = read_file('CHANGES.rst')
 
 setup(name='syseggrecipe',
       version=version,
-      description=("nens-syseggrecipe allows the reuse of system eggs in "
+      description=("Syseggrecipe allows the reuse of system eggs in "
                    "buildout installs"),
       long_description='\n\n'.join([readme, changes]),
       classifiers=[
@@ -23,7 +23,7 @@ setup(name='syseggrecipe',
           'Development Status :: 4 - Beta',
           'License :: OSI Approved :: MIT License',
           'Programming Language :: Python :: 2.6',
-          'Programming Language :: Python :: 2.7'
+          'Programming Language :: Python :: 2.7',
       ],
       packages=find_packages(exclude=['ez_setup']),
       keywords='',
