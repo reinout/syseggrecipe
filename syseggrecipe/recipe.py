@@ -3,6 +3,9 @@ import os
 import pkg_resources
 
 
+logger = logging.getLogger(__name__)
+
+
 class Recipe(object):
 
     def __init__(self, buildout, name, options):
@@ -12,7 +15,6 @@ class Recipe(object):
         options.setdefault('eggs', '')
 
     def install(self):
-        logger = logging.getLogger(self.name)
         eggs = self.options['eggs'].strip()
         eggs = [s.strip() for s in eggs.split('\n')]
 
