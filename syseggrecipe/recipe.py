@@ -1,7 +1,6 @@
 import logging
 import os
 import pkg_resources
-import shutil
 
 
 class Recipe(object):
@@ -71,10 +70,12 @@ class Recipe(object):
                 egginfo_filepath = os.path.join(dist.location,
                                                 egginfo_filename)
                 self.logger.info("Using sysegg %s for %s",
-                                 egginfo_filename, egg)
-                target = os.path.join(self.dev_egg_dir, egginfo_filename)
-                shutil.copyfile(egginfo_filepath, target)
-                self.added.append(target)
+                                 egginfo_filepath, egg)
+                link_filepath = os.path.join(self.dev_egg_dir, egginfo_filename)
+                if os.path.exists(link_filepath):
+                    os.remove(link_filepath)
+                os.symlink(egginfo_filepath, link_filepath)
+                self.added.append(link_filepath)
             
             # Older versions of ourselves used to create an
             # egg-link file. Zap it if it is still there.
