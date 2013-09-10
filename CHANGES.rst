@@ -2,7 +2,7 @@ CHANGES
 =======
 
 
-0.3 (unreleased)
+0.3 (2013-09-10)
 ----------------
 
 - We report files that we've added to buildout now so that buildout
