@@ -5,7 +5,18 @@ CHANGES
 0.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- We report files that we've added to buildout now so that buildout
+  automatically cleans them up for us. No more pollution in our
+  develop-eggs directory!
+
+- Symlinking folders of non-egg distributions that we found in a
+  system directory turned out to be a bad idea. Some distributions
+  install files instead of directories (GDAL ends up as ``gdal.py``,
+  for instance). We now only copy the "egg-info" files, which turns
+  out to be enough for setuptools to find the distributions.
+
+- Copying (see above) instead of symlinking means it also works on
+  windows again.
 
 
 0.2 (2013-09-10)
