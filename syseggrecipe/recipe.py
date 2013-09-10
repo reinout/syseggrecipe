@@ -68,7 +68,7 @@ class Recipe(object):
                         dist.location, egg))
 
             for egginfo_filename in egginfo_filenames:
-                egginfo_filepath = os.path.join(dist.location, 
+                egginfo_filepath = os.path.join(dist.location,
                                                 egginfo_filename)
                 self.logger.info("Using sysegg %s for %s",
                                  egginfo_filename, egg)
