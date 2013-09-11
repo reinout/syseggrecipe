@@ -41,8 +41,8 @@ grabbing global eggs.::
   eggs =
     netCDF4
 
-To stop the buildout when not all syseggs are installed include: 
-`force-sysegg = true`::
+To stop the buildout when not all syseggs are installed include
+``force-sysegg = true``::
 
   [buildout]
   parts = sysegg
@@ -61,7 +61,7 @@ How it works
 ============
 
 The core of the system is buildout's concept of "development eggs".
-This is a special directory (``develop-eggs/'' within your buildout)
+This is a special directory (``develop-eggs/`` within your buildout)
 with pointers to Python packages that are currently being developed.
 These pointers take precedense over any other item. Examples include
 the project you're working on, but also items you installed with
