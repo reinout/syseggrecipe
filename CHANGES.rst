@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-0.5 (unreleased)
+1.0 (2013-09-11)
 ----------------
 
 - Re-released as 1.0 as it is stable now.
