@@ -1,11 +1,11 @@
-CHANGES
-=======
+Changelog
+=========
 
 
 0.5 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Re-released as 1.0 as it is stable now.
 
 
 0.4 (2013-09-10)

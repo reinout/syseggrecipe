@@ -20,7 +20,7 @@ setup(name='syseggrecipe',
       classifiers=[
           'Framework :: Buildout',
           'Topic :: Software Development :: Build Tools',
-          'Development Status :: 4 - Beta',
+          'Development Status :: 5 - Production/Stable',
           'License :: OSI Approved :: MIT License',
           'Programming Language :: Python :: 2.6',
           'Programming Language :: Python :: 2.7',
