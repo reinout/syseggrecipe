@@ -22,7 +22,7 @@ class Recipe(object):
 
         for egg in eggs:
             self.add_dev_link_to_egg(egg)
-        return self.added
+        return ()
 
     update = install
 

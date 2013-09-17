@@ -5,7 +5,7 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Quick fix bug where buildout rmtree can't remove egg info/link files.
 
 
 1.0 (2013-09-11)
