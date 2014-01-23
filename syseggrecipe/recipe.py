@@ -63,7 +63,7 @@ class Recipe(object):
                 and filename.startswith(dist.project_name)]
             if not egginfo_filenames:
                 raise RuntimeError(
-                    "Cannot find egg-info files in {} for sysegg {}".format(
+                    "Cannot find egg-info files in {0} for sysegg {1}".format(
                         dist.location, egg))
 
             for egginfo_filename in egginfo_filenames:
@@ -80,7 +80,7 @@ class Recipe(object):
             # Older versions of ourselves used to create an
             # egg-link file. Zap it if it is still there.
             erroneous_old_egglink = os.path.join(
-                self.dev_egg_dir, '{}.egg-link'.format(dist.project_name))
+                self.dev_egg_dir, '{0}.egg-link'.format(dist.project_name))
             if os.path.exists(erroneous_old_egglink):
                 os.remove(erroneous_old_egglink)
                 self.logger.debug("Removed old egglink %S",
