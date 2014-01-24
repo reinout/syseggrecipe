@@ -60,7 +60,11 @@ class Recipe(object):
             egginfo_filenames = [
                 filename for filename in all_filenames
                 if filename.endswith('.egg-info')
-                and filename.startswith(dist.project_name)]
+                and (
+                    filename.startswith(dist.project_name)
+                    or
+                    filename.startswith(dist.project_name.replace('-', '_'))
+                 )]
             if not egginfo_filenames:
                 raise RuntimeError(
                     "Cannot find egg-info files in {0} for sysegg {1}".format(
