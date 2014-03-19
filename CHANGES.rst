@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1 (unreleased)
+1.1 (2014-03-19)
 ----------------
 
 - Added Python 2.6 compatibility.
