@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2 (unreleased)
+1.2 (2014-03-19)
 ----------------
 
 - Using ``os.path.lexists()`` instead of ``os.path.exists()``, this one
