@@ -5,7 +5,10 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Added Python 2.6 compatibility.
+
+- Compensating for packages with underscore characters like ``MySQL_python``.
+  (Both fixes by benwah, thanks!)
 
 
 1.0.1 (2013-09-17)
