@@ -75,7 +75,10 @@ class Recipe(object):
                 self.logger.info("Using sysegg %s for %s",
                                  egginfo_filepath, egg)
                 link_filepath = os.path.join(self.dev_egg_dir, egginfo_filename)
-                if os.path.exists(link_filepath):
+                if os.path.lexists(link_filepath):
+                    # Note: yes, lexists() instead of exists(), this one
+                    # returns true also if there's a symlink that leads
+                    # nowhere. Exists() follows the symlink...
                     os.remove(link_filepath)
                 os.symlink(egginfo_filepath, link_filepath)
                 self.added.append(link_filepath)
