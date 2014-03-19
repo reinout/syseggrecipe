@@ -60,10 +60,9 @@ class Recipe(object):
             egginfo_filenames = [
                 filename for filename in all_filenames
                 if filename.endswith('.egg-info')
-                and (
-                    filename.startswith(dist.project_name)
-                    or
-                    filename.startswith(dist.project_name.replace('-', '_'))
+                and (filename.startswith(dist.project_name)
+                     or
+                     filename.startswith(dist.project_name.replace('-', '_'))
                  )]
             if not egginfo_filenames:
                 raise RuntimeError(
@@ -80,7 +79,7 @@ class Recipe(object):
                     os.remove(link_filepath)
                 os.symlink(egginfo_filepath, link_filepath)
                 self.added.append(link_filepath)
-            
+
             # Older versions of ourselves used to create an
             # egg-link file. Zap it if it is still there.
             erroneous_old_egglink = os.path.join(
