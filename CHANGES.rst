@@ -5,7 +5,11 @@ Changelog
 1.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Using ``os.path.lexists()`` instead of ``os.path.exists()``, this one
+  returns True also if there's a symlink that leads nowhere. ``exists()``
+  follows the symlink so returns False for broken symlinks. In our case that
+  means that the broken symlink isn't removed so that the subsequent creation
+  of a new symlink fails as the filename is already in use. Fixes #3.
 
 
 1.1 (2014-03-19)
