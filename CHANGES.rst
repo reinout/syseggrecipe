@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.3 (unreleased)
+1.3 (2014-11-18)
 ----------------
 
 - Fixed bug: ``%S`` instead of ``%s`` (lowercase) in a log message. You'd get
