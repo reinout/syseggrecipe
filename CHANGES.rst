@@ -5,7 +5,9 @@ Changelog
 1.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fixed bug: ``%S`` instead of ``%s`` (lowercase) in a log message. You'd get
+  a ``ValueError: unsupported format character in recipe.py`` if you got hit
+  by the bug (which only happens in a corner case).
 
 
 1.2 (2014-03-19)
