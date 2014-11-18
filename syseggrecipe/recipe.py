@@ -89,7 +89,7 @@ class Recipe(object):
                 self.dev_egg_dir, '{0}.egg-link'.format(dist.project_name))
             if os.path.exists(erroneous_old_egglink):
                 os.remove(erroneous_old_egglink)
-                self.logger.debug("Removed old egglink %S",
+                self.logger.debug("Removed old egglink %s",
                                   erroneous_old_egglink)
 
 
