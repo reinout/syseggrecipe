@@ -59,7 +59,7 @@ class Recipe(object):
             all_filenames = os.listdir(dist.location)
             egginfo_filenames = [
                 filename for filename in all_filenames
-                if filename.endswith('.egg-info')
+                if (filename.endswith('.egg-info') or filename.endswith('.dist-info'))
                 and (filename.startswith(dist.project_name)
                      or
                      filename.startswith(dist.project_name.replace('-', '_'))
