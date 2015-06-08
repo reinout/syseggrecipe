@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.4 (unreleased)
+1.4 (2015-06-08)
 ----------------
 
 - We now also find pip-installed packages (which end in
