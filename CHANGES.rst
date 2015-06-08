@@ -5,7 +5,8 @@ Changelog
 1.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- We now also find pip-installed packages (which end in
+  ``.dist-info``). (Support added by Olivier Bornet, thanks!)
 
 
 1.3 (2014-11-18)
