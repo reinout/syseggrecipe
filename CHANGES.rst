@@ -5,7 +5,8 @@ Changelog
 1.6 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Added a little bit of extra logging. for 1.5's feature.
+  [reinout]
 
 
 1.5 (2015-10-27)

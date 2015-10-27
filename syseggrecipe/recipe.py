@@ -1,5 +1,6 @@
 import logging
 import os
+import sys
 import pkg_resources
 
 
@@ -109,6 +110,7 @@ class Recipe(object):
             imported = __import__(egg)
         except ImportError:
             self.logger.warn("Tried importing '%s', but that also didn't work.", egg)
+            self.logger.debug("For reference, sys.path is %s", sys.path)
             return
         self.logger.info("Importing %s works, however", egg)
         try:
