@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-1.6 (unreleased)
-----------------
+1.5.1 (2015-10-27)
+------------------
 
 - Added a little bit of extra logging. for 1.5's feature.
   [reinout]
