@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.5 (unreleased)
+1.5 (2015-10-27)
 ----------------
 
 - If a package isn't found, it sometimes only is a matter of a missing
