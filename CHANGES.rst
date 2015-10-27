@@ -5,7 +5,14 @@ Changelog
 1.5 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- If a package isn't found, it sometimes only is a matter of a missing
+  ``*.egg-info`` file. Like ubuntu, that misses the egg-info file for mapnik,
+  even though mapnik itself is installed.
+
+  We now attempt to import such a package (simply using the package name) and
+  use the directory it is installed in, if found. Note: the package name might
+  not be a valid import name. Support might have to be added for corner cases.
+  [reinout]
 
 
 1.4 (2015-06-08)
